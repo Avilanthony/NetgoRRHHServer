@@ -1,7 +1,7 @@
 const {DataTypes} = require('sequelize');
-const {ballenita} = require('../../database/database');
+const rrhhNetgo = require('../../database/database');
 
-const ESTADOSTICKETS = ballenita.define('tbl_mt_estado_ticket', {
+const ESTADOSTICKETS = rrhhNetgo.define('tbl_mt_estado_ticket', {
     ID_ESTADO: {
         type: DataTypes.INTEGER,
         primaryKey: true

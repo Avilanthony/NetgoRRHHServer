@@ -1,4 +1,5 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require("sequelize");
+
 
 const {
     SCHEMA ,
@@ -8,9 +9,9 @@ const {
 }=process.env;
 
 // Option 3: Passing parameters separately (other dialects)
-const ballenita = new Sequelize(SCHEMA, SQL_USER, SQL_PASSWORD, {
+const rrhhNetgo = new Sequelize(SCHEMA, SQL_USER, SQL_PASSWORD, {
   host: MYSQL_HOST,
   dialect: 'mysql'
 });
 
-module.exports = ballenita
+module.exports = rrhhNetgo;

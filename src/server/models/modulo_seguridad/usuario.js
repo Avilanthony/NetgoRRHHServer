@@ -1,7 +1,8 @@
 const {DataTypes} = require('sequelize');
-const {ballenita} = require('../../database/database');
+const rrhhNetgo = require('../../database/database');
 
-const USERS = ballenita.define('tbl_ms_usuario', {
+
+const USERS = rrhhNetgo.define('tbl_ms_usuario', {
     ID_USUARIO: {
         type: DataTypes.INTEGER,
         primaryKey: true
@@ -22,7 +23,7 @@ const USERS = ballenita.define('tbl_ms_usuario', {
         type: DataTypes.STRING
     },
     ESTADO: {
-        type: DataTypes.BOOLEAN
+        type: DataTypes.STRING
     },
     CONTRASENA: {
         type: DataTypes.TEXT
@@ -40,7 +41,8 @@ const USERS = ballenita.define('tbl_ms_usuario', {
         type: DataTypes.STRING
     },
 },{
-    tableName: 'tbl_ms_usuario', timestamps: true
+    tableName: 'tbl_ms_usuario', 
+    timestamps: true
 }); //DECLARANDO EL OBJETO
 
 module.exports = USERS;

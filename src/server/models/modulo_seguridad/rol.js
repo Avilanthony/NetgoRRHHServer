@@ -1,7 +1,7 @@
 const {DataTypes} = require('sequelize');
-const {ballenita} = require('../../database/database');
+const rrhhNetgo = require('../../database/database');
 
-const ROLES = ballenita.define('tbl_ms_rol', {
+const ROLES = rrhhNetgo.define('tbl_ms_rol', {
     ID_ROL: {
         type: DataTypes.INTEGER,
         primaryKey: true
