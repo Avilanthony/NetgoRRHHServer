@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 
 const ROLES = require("../../models/modulo_seguridad/rol");
 const USERS = require("../../models/modulo_seguridad/usuario");
+const DNI = require("../../models/modulodni/dni");
 
 const registrar = async (req = request, res = response) => {
 
@@ -36,11 +37,10 @@ const registrar = async (req = request, res = response) => {
         // Crear usuario con el modelo
         DBusuario = await USERS.build({
             USUARIO: usuario,
-            NOMBRE: nombre,
-            APELLIDO: apellido,
+            PRIMER_NOMBRE: nombre,
+            APELLIDO_PATERNO: apellido,
             CONTRASENA: contrasena,
-            DNI: dni,
-            ESTADO: 'Nuevo',
+            ESTADO: 'NUEVO',
             CORREO: correo,
             TELEFONO: telefono,
             ID_ROL: idRol.ID_ROL
@@ -51,7 +51,16 @@ const registrar = async (req = request, res = response) => {
         DBusuario.CONTRASENA = bcrypt.hashSync(contrasena, salt);
 
         // Crear usuario de DB
-        await DBusuario.save()
+        await DBusuario.save();
+
+        const dniUsuario = await USERS.findOne({where: {USUARIO: usuario}})
+
+        dbDni = await DNI.build({
+            DNI: dni,
+            ID_USUARIO: dniUsuario.ID_USUARIO
+        })
+
+        await dbDni.save();
 
         
         // Generar respuesta exitosa

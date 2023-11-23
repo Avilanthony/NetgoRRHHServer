@@ -7,7 +7,7 @@ const DNI = rrhhNetgo.define('tbl_md_dni_usuario', {
         primaryKey: true
     },
     DNI: {
-        type: DataTypes.INTEGER
+        type: DataTypes.STRING
     },
     IMAGEN: {
         type: DataTypes.TEXT
@@ -16,7 +16,7 @@ const DNI = rrhhNetgo.define('tbl_md_dni_usuario', {
         type: DataTypes.INTEGER
     },
 },{
-    tableName: 'tbl_md_dni_usuario', timestamps: true
+    tableName: 'tbl_md_dni_usuario', timestamps: false
 }); //DECLARANDO EL OBJETO
 
 module.exports = DNI;

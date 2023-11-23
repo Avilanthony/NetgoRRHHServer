@@ -25,15 +25,15 @@ const login = async (req = request, res = response) => {
             })
         }
 
-        //const validate_password = bcrypt.compareSync(password, DBUser.CONTRASENA)
-        /* if (!validate_password) {
+        const validate_password = bcrypt.compareSync(contrasena, DBUser.CONTRASENA)
+        if (!validate_password) {
 
             await DBUser.save();
 
             return res.status(401).json({
-                msg: 'Email or password invalid'
+                msg: 'Password invalid'
             });
-        } */
+        }
 
         //Get the duration of the session token
         //const durationTokenSession = await Parameter.findOne({where:{PARAMETRO: 'DURACION_TOKEN_SESION'}});

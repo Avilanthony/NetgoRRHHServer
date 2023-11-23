@@ -6,8 +6,6 @@ const USERS = rrhhNetgo.define('tbl_ms_usuario', {
     ID_USUARIO: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull: false,
-        unique: true
     },
     ID_ROL: {
         type: DataTypes.INTEGER
@@ -20,10 +18,16 @@ const USERS = rrhhNetgo.define('tbl_ms_usuario', {
         allowNull: false,
         unique: true
     },
-    NOMBRE: {
+    PRIMER_NOMBRE: {
         type: DataTypes.STRING
     },
-    APELLIDO: {
+    SEGUNDO_NOMBRE: {
+        type: DataTypes.STRING
+    },
+    APELLIDO_PATERNO: {
+        type: DataTypes.STRING
+    },
+    APELLIDO_MATERNO: {
         type: DataTypes.STRING
     },
     ESTADO: {
