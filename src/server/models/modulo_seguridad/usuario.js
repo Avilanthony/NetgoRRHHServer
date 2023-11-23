@@ -46,6 +46,9 @@ const USERS = rrhhNetgo.define('tbl_ms_usuario', {
     CORREO: {
         type: DataTypes.STRING
     },
+    TELEFONO: {
+        type: DataTypes.STRING
+    },
 }, {
     tableName: 'tbl_ms_usuario',
     timestamps: false

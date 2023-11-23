@@ -10,7 +10,7 @@ const ROLES = rrhhNetgo.define('tbl_ms_rol', {
         type: DataTypes.STRING
     },
 },{
-    tableName: 'tbl_ms_rol', timestamps: true
+    tableName: 'tbl_ms_rol', timestamps: false
 }); //DECLARANDO EL OBJETO
 
 module.exports = ROLES;
