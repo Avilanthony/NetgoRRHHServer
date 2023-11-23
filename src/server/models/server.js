@@ -4,7 +4,7 @@ const routerAuthAdmin = require('../routes/usuarios/usuarios')
 
 class Server{
     constructor(){
-        this.app=express(),
+        this.app=express();
         this.port=process.env.PORT;
         this.apiroutes={
             auth:   '/auth'

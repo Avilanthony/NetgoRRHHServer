@@ -1,11 +1,13 @@
-const {DataTypes} = require('sequelize');
+const { DataTypes } = require('sequelize');
 const rrhhNetgo = require('../../database/database');
 
 
 const USERS = rrhhNetgo.define('tbl_ms_usuario', {
     ID_USUARIO: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        allowNull: false,
+        unique: true
     },
     ID_ROL: {
         type: DataTypes.INTEGER
@@ -14,7 +16,9 @@ const USERS = rrhhNetgo.define('tbl_ms_usuario', {
         type: DataTypes.INTEGER
     },
     USUARIO: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
     },
     NOMBRE: {
         type: DataTypes.STRING
@@ -26,7 +30,9 @@ const USERS = rrhhNetgo.define('tbl_ms_usuario', {
         type: DataTypes.STRING
     },
     CONTRASENA: {
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT,
+        allowNull: false,
+        unique: true
     },
     IMAGEN: {
         type: DataTypes.TEXT
@@ -40,9 +46,9 @@ const USERS = rrhhNetgo.define('tbl_ms_usuario', {
     CORREO: {
         type: DataTypes.STRING
     },
-},{
-    tableName: 'tbl_ms_usuario', 
-    timestamps: true
+}, {
+    tableName: 'tbl_ms_usuario',
+    timestamps: false
 }); //DECLARANDO EL OBJETO
 
 module.exports = USERS;
