@@ -14,6 +14,7 @@ const login = async (req = request, res = response) => {
         if (!DBUser) {
             return res.status(404).json({
                 ok: false,
+                status: false,
                 msg: 'User or password invalid'
             })
         }
@@ -21,6 +22,7 @@ const login = async (req = request, res = response) => {
         if(DBUser.ESTADO === 'Inactivo'){
             return res.status(401).json({
                 ok: false,
+                status: false,
                 msg: 'The user is blocked, talk to the administrator or change the password.'
             })
         }
@@ -49,6 +51,7 @@ const login = async (req = request, res = response) => {
         return res.status(200).json({
             User: DBUser,
             msg: 'Oke',
+            status: true,
             ok: true,
             token
         });
@@ -57,6 +60,7 @@ const login = async (req = request, res = response) => {
         console.log(error);
         return res.json({
             ok: false,
+            status: false,
             msg: 'Talk to the administrator.'
         });
     };
