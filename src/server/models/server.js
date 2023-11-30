@@ -1,13 +1,15 @@
 const express = require('express');
 const cors = require('cors');
 const routerAuthAdmin = require('../routes/usuarios/usuarios')
+const routerDashUser = require('../routes/usuarios/usuarios')
 
 class Server{
     constructor(){
         this.app=express();
         this.port=process.env.PORT;
         this.apiroutes={
-            auth:   '/auth'
+            auth:   '/auth',
+            dash:   '/dash'
         };
         this.middlewares();
         this.routes();
@@ -20,7 +22,8 @@ class Server{
     }
 
     routes(){
-        this.app.use(this.apiroutes.auth, routerAuthAdmin);
+        this.app.use(this.apiroutes.auth, routerAuthAdmin);  
+        this.app.use(this.apiroutes.dash, routerDashUser);        
     }
 
     listen(){

@@ -8,7 +8,7 @@ const { emailExistente } = require('../../helpers/db_validators');
 const { existeUsuario } = require('../../middlewares/validaciones_usuario');
 const { validarLongitudDBContra } = require('../../middlewares/validar_longitudDB_contrasena');
 const { validarContraseña } = require('../../middlewares/validar_contrasena');
-const { registrar } = require('../../controllers/seguridad/usuario.controller');
+const { registrar, getUsuario } = require('../../controllers/seguridad/usuario.controller');
 
 const router = Router();
 
@@ -29,10 +29,14 @@ router.post('/registro',[
     check('usuario', 'El usuario debe escribirse en mayúsculas').isUppercase(),
     check('usuario', 'El usuario no debe tener menos de 5 caracteres').isLength({min: 5}),
     check('usuario', 'El usuario no debe tener más de 15 caracteres').isLength({max: 15}),
-    check('nombre', 'El nombre de la persona es obligatorio').not().isEmpty(),
-    check('nombre', 'El nombre no debe contener números').isAlpha('es-ES', {ignore:' '}),
-    check('apellido', 'El apellido de la persona es obligatorio').not().isEmpty(),
-    check('apellido', 'El apellido no debe contener números').isAlpha('es-ES', {ignore:' '}),
+    check('primer_nombre', 'El nombre de la persona es obligatorio').not().isEmpty(),
+    check('primer_nombre', 'El nombre no debe contener números').isAlpha('es-ES', {ignore:' '}),
+    check('segundo_nombre', 'El nombre de la persona es obligatorio').not().isEmpty(),
+    check('segundo_nombre', 'El nombre no debe contener números').isAlpha('es-ES', {ignore:' '}),
+    check('primer_apellido', 'El apellido de la persona es obligatorio').not().isEmpty(),
+    check('primer_apellido', 'El apellido no debe contener números').isAlpha('es-ES', {ignore:' '}),
+    check('segundo_apellido', 'El apellido de la persona es obligatorio').not().isEmpty(),
+    check('segundo_apellido', 'El apellido no debe contener números').isAlpha('es-ES', {ignore:' '}),
     check('dni', 'El dni de la persona es obligatorio').not().isEmpty(),
     check('dni', 'El dni no debe llevar espacios').custom(validarEspacio),
     check('dni', 'El dni no debe tener menos de 13 caracteres').isLength({min: 13}),
@@ -56,5 +60,7 @@ router.post('/registro',[
     validarCampos
     
 ],registrar)
+
+router.get('/:id_usuario',getUsuario)
 
 module.exports = router;

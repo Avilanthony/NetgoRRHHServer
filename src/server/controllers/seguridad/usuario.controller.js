@@ -4,12 +4,16 @@ const bcrypt = require('bcryptjs');
 const ROLES = require("../../models/modulo_seguridad/rol");
 const USERS = require("../../models/modulo_seguridad/usuario");
 const DNI = require("../../models/modulodni/dni");
+const ViewUsuarios = require("../../models/modulo_seguridad/views/usuario_datos_view");
+const DEPTOS = require("../../models/modulo_departamento/departamento");
 
 const registrar = async (req = request, res = response) => {
 
     const {
-        nombre = "",
-        apellido = "",
+        primer_nombre = "",
+        segundo_nombre = "",
+        primer_apellido = "",
+        segundo_apellido = "",
         usuario = "",
         dni = "",
         correo = "",
@@ -34,16 +38,26 @@ const registrar = async (req = request, res = response) => {
             }
         })
 
+        // Cargar el id del rol default (Para no Hardcodear)
+        const idDep = await DEPTOS.findOne({
+            where: {
+                DEPARTAMENTO: 'NINGUNO'
+            }
+        })
+
         // Crear usuario con el modelo
         DBusuario = await USERS.build({
             USUARIO: usuario,
-            PRIMER_NOMBRE: nombre,
-            APELLIDO_PATERNO: apellido,
+            PRIMER_NOMBRE: primer_nombre,
+            SEGUNDO_NOMBRE: segundo_nombre,
+            APELLIDO_PATERNO: primer_apellido,
+            APELLIDO_MATERNO: segundo_apellido,
             CONTRASENA: contrasena,
             ESTADO: 'NUEVO',
             CORREO: correo,
             TELEFONO: telefono,
-            ID_ROL: idRol.ID_ROL
+            ID_ROL: idRol.ID_ROL,
+            ID_DEPARTAMENTO: idDep.ID_DEPARTAMENTO
         })
 
         // Hashear contraseña
@@ -78,4 +92,33 @@ const registrar = async (req = request, res = response) => {
     }
 }
 
-module.exports = { registrar };
+const getUsuario = async (req = request, res = response) => {
+    const {id_usuario} = req.params;
+
+    try {
+        console.log('ID del usuario recibido:', id_usuario);
+
+        const usuario = await ViewUsuarios.findByPk(id_usuario);
+
+        if (!usuario) {
+            console.log('Usuario no encontrado');
+            return res.status(404).json({
+                ok: false,
+                msg: "No existe el usuario"
+            });
+        }
+
+        res.json({usuario});
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            msg: error.message
+        });
+    }
+};
+
+
+module.exports = {
+    registrar,
+    getUsuario };

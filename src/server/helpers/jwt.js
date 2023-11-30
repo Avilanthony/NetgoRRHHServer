@@ -1,8 +1,10 @@
 const jwt = require('jsonwebtoken')
 
-const generarJWT = ( uid, duracion, semilla ) => {//FUNCIÓN QUE USA EL UID, LA DURACIÓN Y LA SEMILLA DEL TOKEN
+const generarJWT = ( uid, user ,duracion, semilla ) => {//FUNCIÓN QUE USA EL UID, LA DURACIÓN Y LA SEMILLA DEL TOKEN
 
     const payload = { uid };
+
+    const prueba = { user };
     
     return new Promise((resolve, reject) => {//PROMESA QUE DA LA RESPUESTA O EL RECHAZO DEL ID CON LA SEMILLA
         jwt.sign( payload, semilla, {
