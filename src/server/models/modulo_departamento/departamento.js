@@ -13,7 +13,7 @@ const DEPTOS = rrhhNetgo.define('tbl_md_departamento', {
         type: DataTypes.STRING
     },
 },{
-    tableName: 'tbl_md_departamento', timestamps: true
+    tableName: 'tbl_md_departamento', timestamps: false
 }); //DECLARANDO EL OBJETO
 
 module.exports = DEPTOS;
