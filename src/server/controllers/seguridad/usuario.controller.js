@@ -6,6 +6,7 @@ const USERS = require("../../models/modulo_seguridad/usuario");
 const DNI = require("../../models/modulodni/dni");
 const ViewUsuarios = require("../../models/modulo_seguridad/views/usuario_datos_view");
 const DEPTOS = require("../../models/modulo_departamento/departamento");
+const ViewPerfil = require("../../models/modulo_seguridad/views/perfil_usuario_view");
 
 const registrar = async (req = request, res = response) => {
 
@@ -118,7 +119,34 @@ const getUsuario = async (req = request, res = response) => {
     }
 };
 
+const getUsuarioPerfil = async (req = request, res = response) => {
+    const {id_usuario} = req.params;
+
+    try {
+        console.log('ID del usuario recibido:', id_usuario);
+
+        const usuario = await ViewPerfil.findByPk(id_usuario);
+
+        if (!usuario) {
+            console.log('Usuario no encontrado');
+            return res.status(404).json({
+                ok: false,
+                msg: "No existe el usuario"
+            });
+        }
+
+        res.json({usuario});
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            msg: error.message
+        });
+    }
+};
+
 
 module.exports = {
     registrar,
-    getUsuario };
+    getUsuario,
+    getUsuarioPerfil };

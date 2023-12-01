@@ -8,7 +8,7 @@ const { emailExistente } = require('../../helpers/db_validators');
 const { existeUsuario } = require('../../middlewares/validaciones_usuario');
 const { validarLongitudDBContra } = require('../../middlewares/validar_longitudDB_contrasena');
 const { validarContraseña } = require('../../middlewares/validar_contrasena');
-const { registrar, getUsuario } = require('../../controllers/seguridad/usuario.controller');
+const { registrar, getUsuario, getUsuarioPerfil } = require('../../controllers/seguridad/usuario.controller');
 
 const router = Router();
 
@@ -62,5 +62,7 @@ router.post('/registro',[
 ],registrar)
 
 router.get('/:id_usuario',getUsuario)
+
+router.get('/perfil_usuario/:id_usuario', getUsuarioPerfil)
 
 module.exports = router;
