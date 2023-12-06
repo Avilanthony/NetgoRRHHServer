@@ -40,7 +40,7 @@ const login = async (req = request, res = response) => {
         //Get the duration of the session token
         //const durationTokenSession = await Parameter.findOne({where:{PARAMETRO: 'DURACION_TOKEN_SESION'}});
         //Generate JWT
-        const duracionTokenLogin = '1m';
+        const duracionTokenLogin = '24h';
         const token = await generarJWT( DBUser.ID_USUARIO, DBUser.USUARIO, duracionTokenLogin, process.env.SEMILLA_SECRETA_JWT_LOGIN );
 
         //DBUser.INTENTOS = 0;                        // Reset attempts to 0
