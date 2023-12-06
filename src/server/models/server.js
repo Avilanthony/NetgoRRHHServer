@@ -3,6 +3,8 @@ const cors = require('cors');
 const routerAuthAdmin = require('../routes/usuarios/usuarios')
 const routerDashUser = require('../routes/usuarios/usuarios')
 const routerDashUserPerfil = require('../routes/usuarios/usuarios')
+const routerTicketUser = require('../routes/usuarios/notificaciones')
+const routerUserAdmin = require('../routes/administrativa/usuario_editable_admin')
 
 class Server{
     constructor(){
@@ -12,6 +14,8 @@ class Server{
             auth:   '/auth',
             dash:   '/dash',
             perfil: '/perfil',
+            ticket: '/ticket',
+            admin: '/admin',
         };
         this.middlewares();
         this.routes();
@@ -26,7 +30,9 @@ class Server{
     routes(){
         this.app.use(this.apiroutes.auth, routerAuthAdmin);  
         this.app.use(this.apiroutes.dash, routerDashUser);   
-        this.app.use(this.apiroutes.perfil, routerDashUserPerfil);      
+        this.app.use(this.apiroutes.perfil, routerDashUserPerfil);
+        this.app.use(this.apiroutes.ticket, routerTicketUser);      
+        this.app.use(this.apiroutes.admin, routerUserAdmin);
     }
 
     listen(){
