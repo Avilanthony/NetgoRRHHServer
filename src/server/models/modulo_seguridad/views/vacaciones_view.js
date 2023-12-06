@@ -13,7 +13,7 @@ const ViewVacacionesUser = rrhhNetgo.define(`view_vacaciones`, {
         type: DataTypes.STRING
     },
     VACACIONES: {
-        type: DataTypes.STRING
+        type: DataTypes.INTEGER
     },
 }, {
     tableName: 'view_vacaciones',
