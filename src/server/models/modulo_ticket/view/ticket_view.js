@@ -11,7 +11,13 @@ const ViewTicket = rrhhNetgo.define(`view_ticket`, {
     PRIMER_NOMBRE: {
         type: DataTypes.STRING
     },
+    SEGUNDO_NOMBRE: {
+        type: DataTypes.STRING
+    },
     APELLIDO_PATERNO: {
+        type: DataTypes.STRING
+    },
+    APELLIDO_MATERNO: {
         type: DataTypes.STRING
     },
     DEPARTAMENTO: {
