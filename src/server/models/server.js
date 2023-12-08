@@ -6,6 +6,7 @@ const routerDashUserPerfil = require('../routes/usuarios/usuarios')
 const routerTicketUser = require('../routes/usuarios/notificaciones')
 const routerUserAdmin = require('../routes/administrativa/usuario_editable_admin')
 const routerSeleccionarDepartamentos = require('../routes/administrativa/select_deptos_admin')
+const routerDeleteDepto = require('../routes/administrativa/editables/departamentos_editables')
 
 class Server{
     constructor(){
@@ -17,7 +18,8 @@ class Server{
             perfil: '/perfil',
             ticket: '/ticket',
             admin: '/admin',
-            deptos: '/depto_users'
+            deptos: '/depto_users',
+            editables: '/editar'
         };
         this.middlewares();
         this.routes();
@@ -36,6 +38,7 @@ class Server{
         this.app.use(this.apiroutes.ticket, routerTicketUser);      
         this.app.use(this.apiroutes.admin, routerUserAdmin);
         this.app.use(this.apiroutes.deptos, routerSeleccionarDepartamentos);
+        this.app.use(this.apiroutes.editables, routerDeleteDepto);
     }
 
     listen(){

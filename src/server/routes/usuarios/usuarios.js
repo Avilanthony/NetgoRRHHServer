@@ -9,6 +9,7 @@ const { existeUsuario } = require('../../middlewares/validaciones_usuario');
 const { validarLongitudDBContra } = require('../../middlewares/validar_longitudDB_contrasena');
 const { validarContraseña } = require('../../middlewares/validar_contrasena');
 const { registrar, getUsuario, getUsuarioPerfil, getTicketUsuario, getVacacionesUser } = require('../../controllers/seguridad/usuario.controller');
+const { updatePerfilUsuario } = require('../../controllers/editar_perfil_usuario/editar_perfil_controller');
 
 const router = Router();
 
@@ -66,5 +67,13 @@ router.get('/:id_usuario',getUsuario)
 router.get('/perfil_usuario/:id_usuario', getUsuarioPerfil)
 
 router.get('/vacaciones/:id_usuario', getVacacionesUser)
+
+router.put('/editar_usuario/:id_usuario', [
+    check('correo', 'El correo del usuario es obligatorio').not().isEmpty(),
+    check('correo', 'El correo del usuario no es válido').isEmail(),
+    check('correo').custom(emailExistente),
+    check('telefono', 'El telefono de la persona es obligatorio').not().isEmpty(),
+    check('telefono', 'El telefono no debe llevar espacios').custom(validarEspacio)
+], updatePerfilUsuario)
 
 module.exports = router;
