@@ -10,7 +10,7 @@ const LOCALES = rrhhNetgo.define('tbl_ml_local', {
         type: DataTypes.STRING
     },
 },{
-    tableName: 'tbl_ml_local', timestamps: true
+    tableName: 'tbl_ml_local', timestamps: false
 }); //DECLARANDO EL OBJETO
 
 module.exports = LOCALES;
