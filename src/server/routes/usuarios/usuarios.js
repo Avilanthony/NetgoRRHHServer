@@ -47,6 +47,8 @@ router.post('/registro',[
     check('correo').custom(emailExistente),
     check('telefono', 'El telefono de la persona es obligatorio').not().isEmpty(),
     check('telefono', 'El telefono no debe llevar espacios').custom(validarEspacio),
+    check('telefono', 'El telefono no debe tener menos de 8 caracteres').isLength({min: 8}),
+    check('telefono', 'El telefono no debe tener más de 8 caracteres').isLength({max: 8}),
     check('contrasena', 'La contraseña es obligatoria').not().isEmpty(),
     check('contrasena', 'La contraseña no debe llevar espacios').custom(validarEspacio),
     check('contrasena', 'La contraseña no debe tener menos de 8 caracteres').isLength({min: 8}),

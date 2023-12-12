@@ -15,7 +15,7 @@ const login = async (req = request, res = response) => {
             return res.status(404).json({
                 ok: false,
                 status: false,
-                msg: 'User or password invalid'
+                msg: 'Usuario o contraseña inválidos.'
             })
         }
 
@@ -23,7 +23,7 @@ const login = async (req = request, res = response) => {
             return res.status(401).json({
                 ok: false,
                 status: false,
-                msg: 'The user is blocked, talk to the administrator or change the password.'
+                msg: 'El usuario está bloqueado, hable con el administrador.'
             })
         }
 
@@ -33,7 +33,7 @@ const login = async (req = request, res = response) => {
             await DBUser.save();
 
             return res.status(401).json({
-                msg: 'Password invalid'
+                msg: 'Contraseña inválida.'
             });
         }
 
@@ -61,7 +61,7 @@ const login = async (req = request, res = response) => {
         return res.json({
             ok: false,
             status: false,
-            msg: 'Talk to the administrator.'
+            msg: 'Hable con el administrador.'
         });
     };
 }
