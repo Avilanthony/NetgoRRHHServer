@@ -50,7 +50,6 @@ const login = async (req = request, res = response) => {
 
         return res.status(200).json({
             User: DBUser,
-            msg: 'Oke',
             status: true,
             ok: true,
             token

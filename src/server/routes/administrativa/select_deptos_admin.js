@@ -5,7 +5,7 @@ const { seleccionarDepartamentos, getDepartamentos } = require('../../controller
 
 const router = Router();
 
-router.get('/deptosUsuarios',[
+router.get('/deptosUsuarios/:id_departamento',[
 
     check('id_departamento', 'El departamento es obligatorio').not().isEmpty(),
 
