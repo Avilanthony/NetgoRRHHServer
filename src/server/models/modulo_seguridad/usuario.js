@@ -13,6 +13,9 @@ const USERS = rrhhNetgo.define('tbl_ms_usuario', {
     ID_DEPARTAMENTO: {
         type: DataTypes.INTEGER
     },
+    ID_LOCAL: {
+        type: DataTypes.INTEGER
+    },
     USUARIO: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -52,6 +55,9 @@ const USERS = rrhhNetgo.define('tbl_ms_usuario', {
     },
     TELEFONO: {
         type: DataTypes.STRING
+    },
+    VACACIONES: {
+        type: DataTypes.INTEGER
     },
 }, {
     tableName: 'tbl_ms_usuario',

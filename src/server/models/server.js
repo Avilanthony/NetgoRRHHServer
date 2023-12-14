@@ -8,6 +8,7 @@ const routerUserAdmin = require('../routes/administrativa/usuario_editable_admin
 const routerSeleccionarDepartamentos = require('../routes/administrativa/select_deptos_admin')
 const routerEditarDepto = require('../routes/administrativa/editables/departamentos_editables')
 const routerEditarLocal = require('../routes/administrativa/editables/local_editable')
+const routerEditUser = require('../routes/gestionar_usuario/gestionar_ususario')
 
 class Server{
     constructor(){
@@ -20,7 +21,8 @@ class Server{
             ticket: '/ticket',
             admin: '/admin',
             deptos: '/depto_users',
-            editables: '/editar'
+            editables: '/editar',
+            gestionarUsuario: '/gestion_user'
         };
         this.middlewares();
         this.routes();
@@ -40,7 +42,8 @@ class Server{
         this.app.use(this.apiroutes.admin, routerUserAdmin);
         this.app.use(this.apiroutes.deptos, routerSeleccionarDepartamentos);
         this.app.use(this.apiroutes.editables, routerEditarDepto);
-        this.app.use(this.apiroutes.editables, routerEditarLocal)
+        this.app.use(this.apiroutes.editables, routerEditarLocal);
+        this.app.use(this.apiroutes.gestionarUsuario, routerEditUser);
     }
 
     listen(){

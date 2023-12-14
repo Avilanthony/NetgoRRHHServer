@@ -6,9 +6,6 @@ const DEPTOS = rrhhNetgo.define('tbl_md_departamento', {
         type: DataTypes.INTEGER,
         primaryKey: true
     },
-    ID_LOCAL: {
-        type: DataTypes.INTEGER
-    },
     DEPARTAMENTO: {
         type: DataTypes.STRING
     },

@@ -45,16 +45,13 @@ const crearDepto = async (req = request, res = response) => {
 
     const {
         departamento = "",
-        id_local
     } = req.body;
 
     try {
 
         // Crear usuario con el modelo
         DBdepartamento = await DEPTOS.build({
-
             DEPARTAMENTO: departamento,
-            ID_LOCAL: id_local
         })
 
         // Crear usuario de DB

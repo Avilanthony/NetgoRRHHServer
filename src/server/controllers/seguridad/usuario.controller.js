@@ -9,6 +9,7 @@ const DEPTOS = require("../../models/modulo_departamento/departamento");
 const ViewPerfil = require("../../models/modulo_seguridad/views/perfil_usuario_view");
 const ViewTicket = require("../../models/modulo_ticket/view/ticket_view");
 const ViewVacacionesUser = require("../../models/modulo_seguridad/views/vacaciones_view");
+const LOCALES = require("../../models/modulo_locales/locales");
 
 const registrar = async (req = request, res = response) => {
 
@@ -48,6 +49,13 @@ const registrar = async (req = request, res = response) => {
             }
         })
 
+        // Cargar el id del rol default (Para no Hardcodear)
+        const idLoc = await LOCALES.findOne({
+            where: {
+                UBICACION: 'NINGUNO'
+            }
+        })
+
         // Crear usuario con el modelo
         DBusuario = await USERS.build({
             USUARIO: usuario,
@@ -60,7 +68,8 @@ const registrar = async (req = request, res = response) => {
             CORREO: correo,
             TELEFONO: telefono,
             ID_ROL: idRol.ID_ROL,
-            ID_DEPARTAMENTO: idDep.ID_DEPARTAMENTO
+            ID_DEPARTAMENTO: idDep.ID_DEPARTAMENTO,
+            ID_LOCAL: idLoc.ID_LOCAL
         })
 
         // Hashear contraseña

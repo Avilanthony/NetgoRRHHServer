@@ -12,7 +12,6 @@ router.delete('/delete_dep/:id_departamento', deleteDepartamento)
 router.post('/create_dep',[
     check('departamento', 'El nombre del departamento es obligatorio').not().isEmpty(),
     check('departamento', 'El nombre departamento no debe contener números').isAlpha('es-ES', {ignore:' '}),
-    check('id_local', 'El nombre del local es obligatorio').not().isEmpty(),
     validarCampos
 ], crearDepto)
 
