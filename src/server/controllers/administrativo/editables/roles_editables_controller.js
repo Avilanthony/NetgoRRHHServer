@@ -1,34 +1,34 @@
 const { request, response } = require("express");
-const LOCALES = require("../../../models/modulo_locales/locales");
 const USERS = require("../../../models/modulo_seguridad/usuario");
+const ROLES = require("../../../models/modulo_seguridad/rol");
 
 
-const deleteLocal = async (req = request, res = response) => {
+const deleteRol = async (req = request, res = response) => {
     
-    const { id_local } = req.params; //url
+    const { id_rol } = req.params; //url
 
     try {
-        const local = await LOCALES.findByPk(id_local);
+        const rol = await ROLES.findByPk(id_rol);
         
-        if (!local) {
-            console.log('Local no encontrado');
+        if (!rol) {
+            console.log('Rol no encontrado');
             return res.status(404).json({
                 ok: false,
-                msg: "No existe el local"
+                msg: "No existe el rol"
             });
         }
 
         // Corregir el nombre de la variable a local
-        const { UBICACION } = local;
+        const { ROL } = rol;
 
         // Asegúrate de que USERS está correctamente definido y es tu modelo de usuarios
-        await USERS.update({ ID_LOCAL: null }, { where: { ID_LOCAL: id_local } });
+        await USERS.update({ ID_ROL: null }, { where: { ID_ROL: id_rol } });
 
-        await local.destroy();
+        await rol.destroy();
 
         return res.status(200).json({
             ok: true,
-            msg: "Local eliminado con éxito!"
+            msg: "Rol eliminado con éxito!"
         });
 
     } catch (error) {
@@ -42,27 +42,27 @@ const deleteLocal = async (req = request, res = response) => {
     }
 }
 
-const crearLocal = async (req = request, res = response) => {
+const crearRol = async (req = request, res = response) => {
 
     const {
-        local = "",
+        rol = "",
     } = req.body;
 
     try {
 
         // Crear usuario con el modelo
-        DBlocal = await LOCALES.build({
+        DBrol = await ROLES.build({
 
-            UBICACION: local
+            ROL: rol
         })
 
         // Crear usuario de DB
-        await DBlocal.save();
+        await DBrol.save();
         
         // Generar respuesta exitosa
         return res.status(201).json({
             ok: true,
-            msg: '¡Creación del local exitosa!'
+            msg: '¡Creación del rol exitosa!'
         })
 
     } catch (error) {
@@ -74,4 +74,4 @@ const crearLocal = async (req = request, res = response) => {
     }
 }
 
-module.exports={deleteLocal, crearLocal};
+module.exports={deleteRol, crearRol};
