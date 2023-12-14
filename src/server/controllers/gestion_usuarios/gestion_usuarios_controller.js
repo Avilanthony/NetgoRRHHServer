@@ -2,6 +2,7 @@ const { request, response } = require("express");
 const USERS = require("../../models/modulo_seguridad/usuario");
 const DEPTOS = require("../../models/modulo_departamento/departamento");
 const LOCALES = require("../../models/modulo_locales/locales");
+const ROLES = require("../../models/modulo_seguridad/rol");
 
 const gestionarUsuarioLocal = async (req = request, res = response) => {
 
@@ -19,7 +20,7 @@ const gestionarUsuarioLocal = async (req = request, res = response) => {
             });
         }
 
-        const local = await DEPTOS.findByPk(idLocal);
+        const local = await LOCALES.findByPk(idLocal);
 
         await usuario.update({
             ID_LOCAL: idLocal !== "" ? local.ID_LOCAL : USERS.ID_LOCAL,
@@ -30,7 +31,7 @@ const gestionarUsuarioLocal = async (req = request, res = response) => {
 
         return res.status(200).json({
             ok: true,
-            msg: "¡Usuario actualizado con éxito!"
+            msg: "¡Local actualizado con éxito!"
         });
 
     } catch (error) {
@@ -125,9 +126,84 @@ const gestionarUsuarioVacaciones = async (req = request, res = response) => {
     }
 };
 
+const gestionarUsuarioActivo = async (req = request, res = response) => {
+    const { estadoUser } = req.body;
+    const { id_usuario } = req.params;
+
+    try {
+        const usuario = await USERS.findByPk(id_usuario);
+
+        if (!usuario) {
+            console.log('Usuario no encontrado');
+            return res.status(404).json({
+                ok: false,
+                msg: "No existe el usuario"
+            });
+        }
+
+        await usuario.update({
+            ESTADO: estadoUser !== "" ? estadoUser : USERS.ESTADO,
+        }, {
+            where: { ID_USUARIO: id_usuario }
+        })
+
+        return res.status(200).json({
+            ok: true,
+            msg: "¡El estado del usuario se actualizado con éxito!"
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            msg: error.message
+        });
+    }
+};
+
+const gestionarUsuarioRol = async (req = request, res = response) => {
+
+    const { idRol } = req.body;
+    const { id_usuario } = req.params;
+
+    try {
+        const usuario = await USERS.findByPk(id_usuario);
+
+        if (!usuario) {
+            console.log('Usuario no encontrado');
+            return res.status(404).json({
+                ok: false,
+                msg: "No existe el usuario"
+            });
+        }
+
+        const rol = await ROLES.findByPk(idRol);
+
+        await usuario.update({
+            ID_ROL: idRol !== "" ? rol.ID_ROL : USERS.ID_ROL,
+        }, {
+            where: { ID_USUARIO: id_usuario }
+
+        })
+
+        return res.status(200).json({
+            ok: true,
+            msg: "¡El rol fue actualizado con éxito!"
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            msg: error.message
+        });
+    }
+}
 
 module.exports = {
     gestionarUsuarioDepto,
     gestionarUsuarioVacaciones,
-    gestionarUsuarioLocal
+    gestionarUsuarioLocal,
+    gestionarUsuarioActivo,
+    gestionarUsuarioRol
 };
