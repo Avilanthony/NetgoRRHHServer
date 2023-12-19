@@ -12,6 +12,7 @@ const routerEditarDepto = require('../routes/administrativa/editables/departamen
 const routerEditarLocal = require('../routes/administrativa/editables/local_editable')
 const routerEditarRol = require('../routes/administrativa/editables/rol_editable')
 const routerEditUser = require('../routes/gestionar_usuario/gestionar_ususario')
+const fileUpload = require('express-fileupload');
 
 class Server{
     constructor(){
@@ -37,6 +38,11 @@ class Server{
         this.app.use(express.static('./src/server/public'));
         this.app.use(cors());
         this.app.use(express.json());
+        // Note that this option available for versions 1.0.0 and newer. 
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : './uploads/'
+        }));
     }
 
     routes(){

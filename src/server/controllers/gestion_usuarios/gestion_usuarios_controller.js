@@ -31,6 +31,7 @@ const gestionarUsuarioLocal = async (req = request, res = response) => {
 
         return res.status(200).json({
             ok: true,
+            status: true,
             msg: "¡Local actualizado con éxito!"
         });
 
@@ -50,6 +51,8 @@ const gestionarUsuarioDepto = async (req = request, res = response) => {
 
     try {
         const usuario = await USERS.findByPk(id_usuario);
+        console.log("Este es el usuario: " + usuario);
+        console.log("Tipo de usuario:", typeof id_usuario);
 
         if (!usuario) {
             console.log('Usuario no encontrado');
@@ -59,8 +62,10 @@ const gestionarUsuarioDepto = async (req = request, res = response) => {
             });
         }
 
-        const departamento = await DEPTOS.findByPk(idDepto);
+        
 
+        const departamento = await DEPTOS.findByPk(idDepto);
+        
         await usuario.update({
             ID_DEPARTAMENTO: idDepto !== "" ? departamento.ID_DEPARTAMENTO : USERS.ID_DEPARTAMENTO,
         }, {
@@ -68,10 +73,14 @@ const gestionarUsuarioDepto = async (req = request, res = response) => {
 
         })
 
+        
+
         return res.status(200).json({
             ok: true,
+            status: true,
             msg: "¡Usuario actualizado con éxito!"
         });
+        
 
     } catch (error) {
         console.error(error);
@@ -80,6 +89,7 @@ const gestionarUsuarioDepto = async (req = request, res = response) => {
             msg: error.message
         });
     }
+    
 }
 
 const gestionarUsuarioVacaciones = async (req = request, res = response) => {
@@ -114,6 +124,7 @@ const gestionarUsuarioVacaciones = async (req = request, res = response) => {
 
         return res.status(200).json({
             ok: true,
+            status: true,
             msg: "¡Vacaciones del usuario actualizadas con éxito!"
         });
 
@@ -149,6 +160,7 @@ const gestionarUsuarioActivo = async (req = request, res = response) => {
 
         return res.status(200).json({
             ok: true,
+            status: true,
             msg: "¡El estado del usuario se actualizado con éxito!"
         });
 
@@ -188,6 +200,7 @@ const gestionarUsuarioRol = async (req = request, res = response) => {
 
         return res.status(200).json({
             ok: true,
+            status: true,
             msg: "¡El rol fue actualizado con éxito!"
         });
 
