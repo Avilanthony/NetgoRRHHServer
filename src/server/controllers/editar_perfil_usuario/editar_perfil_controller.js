@@ -10,6 +10,7 @@ const updatePerfilUsuario = async (req = request, res = response) => {
     const {telefono, correo} = req.body; //ingresar
 
     let imagen
+    let public_id
 
     try {
 
@@ -23,19 +24,21 @@ const updatePerfilUsuario = async (req = request, res = response) => {
             });
         }
         console.log("El file de la request es: ");
-        console.log(req.files);//Si hubo un reques de archivo
+        console.log(req.files);//Si hubo un request de archivo
         if (req.files?.image) {//image = form-data en Postman
             const result = await uploadFile(req.files.image.tempFilePath)//Subiendo imagen
             console.log("El resultado es: ");
             console.log(result); //Info de imagen subida
             imagen = result.secure_url; //Obtención de la URL de Cloudinary a partir de los componentes de result
+            public_id = result.public_id;
             await fs.unlink(req.files.image.tempFilePath) //Elimar el archivo de Uploads
         }
         
         await usuario.update({
             TELEFONO: telefono !== "" ? telefono : USERS.TELEFONO, 
             CORREO: correo !== "" ? correo : USERS.CORREO,
-            IMAGEN: imagen !== "" ? imagen : USERS.IMAGEN
+            IMAGEN: imagen !== "" ? imagen : USERS.IMAGEN,
+            PUBLIC_ID_IMG : public_id
         },{
             where: {ID_USUARIO : id_usuario}
             

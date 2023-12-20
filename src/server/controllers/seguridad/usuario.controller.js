@@ -90,8 +90,9 @@ const registrar = async (req = request, res = response) => {
 
         
         // Generar respuesta exitosa
-        return res.status(201).json({
+        return res.status(200).json({
             ok: true,
+            status: true,
             msg: 'Registro éxitoso'
         })
 

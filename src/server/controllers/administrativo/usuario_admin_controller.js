@@ -69,7 +69,3 @@ const getUsuarioEditAdmin = async (req = request, res = response) => {
 module.exports = {
     getUsuarioEditAdmin
 };
-
-
-module.exports = {
-    getUsuarioEditAdmin };

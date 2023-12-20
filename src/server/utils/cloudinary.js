@@ -1,6 +1,4 @@
 const cloudinary  = require ('cloudinary').v2;
-/* const { Sequelize } = require("sequelize"); */
-
 
 const {
     CLOUDINARY_CLOUD_NAME,
@@ -8,7 +6,6 @@ const {
     CLOUDINARY_API_SECRET
 }=process.env;
 
-/* module.exports = rrhhNetgo; */
 
 cloudinary.config({
     cloud_name:CLOUDINARY_CLOUD_NAME,
@@ -17,17 +14,24 @@ cloudinary.config({
     secure: true
 });
 
-
-/* export async function uploadFile(filePath) {
-    return await cloudinary.uploader.upload(filePath, {
-        folder: 'rrhhNetgoIMG'
-    });
-} */
-
 const uploadFile = async (filePath) =>{
     return await cloudinary.uploader.upload(filePath, {
         folder: 'rrhhNetgoIMG'
     });
 }
 
-module.exports = {uploadFile};
+const uploadPDF = async (filePath) =>{
+    return await cloudinary.uploader.upload(filePath, {
+        folder: 'rrhhNetgoPDF'
+    });
+}
+
+const destroyFile = async (public_id) =>{
+    return await cloudinary.uploader.destroy(public_id).then(result=>console.log(result));
+}
+
+const destroyPDF = async (public_id) =>{
+    return await cloudinary.uploader.destroy(public_id).then(result=>console.log(result));
+}
+
+module.exports = {uploadFile, uploadPDF, destroyFile, destroyPDF};

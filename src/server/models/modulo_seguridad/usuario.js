@@ -59,6 +59,12 @@ const USERS = rrhhNetgo.define('tbl_ms_usuario', {
     VACACIONES: {
         type: DataTypes.INTEGER
     },
+    PUBLIC_ID_IMG: {
+        type: DataTypes.TEXT
+    },
+    PUBLIC_ID_PDF: {
+        type: DataTypes.TEXT
+    }
 }, {
     tableName: 'tbl_ms_usuario',
     timestamps: false
