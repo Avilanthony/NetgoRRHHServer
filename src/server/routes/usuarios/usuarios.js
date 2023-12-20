@@ -10,6 +10,7 @@ const { validarLongitudDBContra } = require('../../middlewares/validar_longitudD
 const { validarContraseña } = require('../../middlewares/validar_contrasena');
 const { registrar, getUsuario, getUsuarioPerfil, getTicketUsuario, getVacacionesUser } = require('../../controllers/seguridad/usuario.controller');
 const { updatePerfilUsuario } = require('../../controllers/editar_perfil_usuario/editar_perfil_controller');
+const { subirImagen } = require('../../controllers/editar_perfil_usuario/editar_imagen_controller');
 
 const router = Router();
 
@@ -77,5 +78,7 @@ router.put('/editar_usuario/:id_usuario', [
     check('telefono', 'El telefono de la persona es obligatorio').not().isEmpty(),
     check('telefono', 'El telefono no debe llevar espacios').custom(validarEspacio)
 ], updatePerfilUsuario)
+
+router.put('/subir_imagen/:id_usuario', subirImagen);
 
 module.exports = router;

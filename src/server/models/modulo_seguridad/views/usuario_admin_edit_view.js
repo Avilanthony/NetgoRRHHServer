@@ -9,7 +9,13 @@ const ViewUserAdminEdit = rrhhNetgo.define(`view_admin_user`, {
     P_NOMBRE: {
         type: DataTypes.STRING
     },
+    S_NOMBRE: {
+        type: DataTypes.STRING
+    },
     P_APELLIDO: {
+        type: DataTypes.STRING
+    },
+    S_APELLIDO: {
         type: DataTypes.STRING
     },
     IMG: {

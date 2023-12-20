@@ -14,7 +14,7 @@ cloudinary.config({
     secure: true
 });
 
-const uploadFile = async (filePath) =>{
+const uploadImage = async (filePath) =>{
     return await cloudinary.uploader.upload(filePath, {
         folder: 'rrhhNetgoIMG'
     });
@@ -26,7 +26,7 @@ const uploadPDF = async (filePath) =>{
     });
 }
 
-const destroyFile = async (public_id) =>{
+const destroyImage = async (public_id) =>{
     return await cloudinary.uploader.destroy(public_id).then(result=>console.log(result));
 }
 
@@ -34,4 +34,4 @@ const destroyPDF = async (public_id) =>{
     return await cloudinary.uploader.destroy(public_id).then(result=>console.log(result));
 }
 
-module.exports = {uploadFile, uploadPDF, destroyFile, destroyPDF};
+module.exports = {uploadImage, uploadPDF, destroyImage, destroyPDF};

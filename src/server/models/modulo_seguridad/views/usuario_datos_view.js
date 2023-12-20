@@ -3,7 +3,13 @@ const rrhhNetgo = require('../../../database/database');
 
 
 const ViewUsuarios = rrhhNetgo.define(`view_datos`, {
+    ID: {
+        type: DataTypes.INTEGER
+    },
     USUARIO: {
+        type: DataTypes.STRING
+    },
+    BOLETA: {
         type: DataTypes.STRING
     },
     ROL: {
