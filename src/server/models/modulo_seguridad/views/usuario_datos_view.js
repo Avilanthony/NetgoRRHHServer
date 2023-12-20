@@ -10,7 +10,10 @@ const ViewUsuarios = rrhhNetgo.define(`view_datos`, {
         type: DataTypes.STRING
     },
     BOLETA: {
-        type: DataTypes.STRING
+        type: DataTypes.TEXT
+    },
+    IMAGEN: {
+        type: DataTypes.TEXT
     },
     ROL: {
         type: DataTypes.STRING
