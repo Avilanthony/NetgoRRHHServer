@@ -48,10 +48,6 @@ const subirBoleta = async (req, res) => {
                     ID_USUARIO: id_usuario
                 }
             });
-            res.json({
-                msg: 'PDF actualizado'
-            })
-
             
             await fs.unlink(req.files.pdf.tempFilePath);
 
@@ -69,14 +65,15 @@ const subirBoleta = async (req, res) => {
                     ID_USUARIO: id_usuario
                 }
             });
-            res.json({
-                msg: 'PDF subido'
-            })
 
             await fs.unlink(req.files.pdf.tempFilePath);
 
         }
 
+        
+        res.json({
+            msg: 'PDF actualizado'
+        })
 
 
     } catch (error) {

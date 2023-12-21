@@ -7,7 +7,8 @@ const subirImagen = async (req, res) => {
     const { id_usuario } = req.params;
     const { image } = req.files;
 
-    console.log(image)
+    console.log(image);
+
 
     try {
 
@@ -20,7 +21,6 @@ const subirImagen = async (req, res) => {
                 msg: "No existe el usuario"
             });
         }
-
         console.log(usuario);
 
         console.log("Antes de entrar");
@@ -40,7 +40,7 @@ const subirImagen = async (req, res) => {
 
             const result = await uploadImage(image.tempFilePath);
             console.log(result)
-            //BOLETA
+            
             await USERS.update({
                 IMAGEN: result.secure_url,
                 PUBLIC_ID_IMG: result.public_id
@@ -49,9 +49,6 @@ const subirImagen = async (req, res) => {
                     ID_USUARIO: id_usuario
                 }
             });
-            res.json({
-                msg: 'IMG actualizada'
-            })
 
             
             await fs.unlink(req.files.image.tempFilePath);
@@ -70,14 +67,20 @@ const subirImagen = async (req, res) => {
                     ID_USUARIO: id_usuario
                 }
             });
-            res.json({
-                msg: 'IMG subido'
-            })
 
             await fs.unlink(req.files.img.tempFilePath);
 
+            
+            res.json({
+                msg: 'IMG actualizada'
+            })
+
         }
 
+        
+        res.json({
+            msg: 'IMG actualizada'
+        })
 
 
     } catch (error) {
@@ -86,5 +89,7 @@ const subirImagen = async (req, res) => {
         })
     }
 }
+
+
 
 module.exports = { subirImagen };
