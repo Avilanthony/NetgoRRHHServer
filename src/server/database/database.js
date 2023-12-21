@@ -1,19 +1,16 @@
 const { Sequelize } = require('sequelize');
 
-const rrhhNetgo = new Sequelize({
-  host: 'rrhhnetgo-pruebas.cvhq4rmcypqh.us-east-2.rds.amazonaws.com',
-  database: 'rrhh_netgo',
-  username: 'admin',
-  password: 'rootNetgoServer',
-  dialect: 'mysql',
-});
+const {
+    SCHEMA ,
+    MYSQL_HOST ,
+    SQL_USER ,
+    SQL_PASSWORD ,
+}=process.env;
 
-rrhhNetgo.authenticate()
-  .then(() => {
-    console.log('Conexión a la base de datos establecida correctamente.');
-  })
-  .catch(err => {
-    console.error('Error al conectar a la base de datos:', err);
-  });
+// Option 3: Passing parameters separately (other dialects)
+const rrhhNetgo = new Sequelize(SCHEMA, SQL_USER, SQL_PASSWORD, {
+  host: MYSQL_HOST,
+  dialect: 'mysql'
+});
 
 module.exports = rrhhNetgo;

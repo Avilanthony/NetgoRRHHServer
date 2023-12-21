@@ -60,7 +60,7 @@ const subirImagen = async (req, res) => {
             console.log(result)
             //BOLETA
             await USERS.update({
-                IMG: result.secure_url,
+                IMAGEN: result.secure_url,
                 PUBLIC_ID_IMG: result.public_id
             }, {
                 where: {
@@ -71,9 +71,9 @@ const subirImagen = async (req, res) => {
             await fs.unlink(req.files.img.tempFilePath);
 
             
-            res.json({
+            /* res.json({
                 msg: 'IMG actualizada'
-            })
+            }) */
 
         }
 
