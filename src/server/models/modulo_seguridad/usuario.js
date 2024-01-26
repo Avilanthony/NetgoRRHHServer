@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const rrhhNetgo = require('../../database/database');
+/* const DNI = require('../modulodni/dni'); */
 
 
 const USERS = rrhhNetgo.define('tbl_ms_usuario', {
@@ -69,5 +70,9 @@ const USERS = rrhhNetgo.define('tbl_ms_usuario', {
     tableName: 'tbl_ms_usuario',
     timestamps: false
 }); //DECLARANDO EL OBJETO
+
+// Definir la relación con DNI
+
+/* USERS.belongsTo(DNI, { foreignKey: 'ID_USUARIO' }); */
 
 module.exports = USERS;

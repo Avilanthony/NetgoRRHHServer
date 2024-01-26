@@ -20,6 +20,12 @@ const uploadImage = async (filePath) =>{
     });
 }
 
+const uploadDNI = async (filePath) =>{
+    return await cloudinary.uploader.upload(filePath, {
+        folder: 'rrhhNetgoDNI'
+    });
+}
+
 const uploadPDF = async (filePath) =>{
     return await cloudinary.uploader.upload(filePath, {
         folder: 'rrhhNetgoPDF'
@@ -30,8 +36,12 @@ const destroyImage = async (public_id) =>{
     return await cloudinary.uploader.destroy(public_id).then(result=>console.log(result));
 }
 
+const destroyDNI = async (public_id) =>{
+    return await cloudinary.uploader.destroy(public_id).then(result=>console.log(result));
+}
+
 const destroyPDF = async (public_id) =>{
     return await cloudinary.uploader.destroy(public_id).then(result=>console.log(result));
 }
 
-module.exports = {uploadImage, uploadPDF, destroyImage, destroyPDF};
+module.exports = {uploadImage, uploadDNI, uploadPDF, destroyImage, destroyDNI, destroyPDF};

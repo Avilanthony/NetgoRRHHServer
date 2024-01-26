@@ -11,6 +11,7 @@ const { validarContraseña } = require('../../middlewares/validar_contrasena');
 const { registrar, getUsuario, getUsuarioPerfil, getTicketUsuario, getVacacionesUser } = require('../../controllers/seguridad/usuario.controller');
 const { updatePerfilUsuario } = require('../../controllers/editar_perfil_usuario/editar_perfil_controller');
 const { subirImagen } = require('../../controllers/editar_perfil_usuario/editar_imagen_controller');
+const { subirDNI } = require('../../controllers/editar_perfil_usuario/editar_dni_controller');
 
 const router = Router();
 
@@ -80,5 +81,7 @@ router.put('/editar_usuario/:id_usuario', [
 ], updatePerfilUsuario)
 
 router.put('/subir_imagen/:id_usuario', subirImagen);
+
+router.put('/subir_dni/:id_usuario', subirDNI);
 
 module.exports = router;
