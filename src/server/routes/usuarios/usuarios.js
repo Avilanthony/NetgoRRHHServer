@@ -12,6 +12,7 @@ const { registrar, getUsuario, getUsuarioPerfil, getTicketUsuario, getVacaciones
 const { updatePerfilUsuario } = require('../../controllers/editar_perfil_usuario/editar_perfil_controller');
 const { subirImagen } = require('../../controllers/editar_perfil_usuario/editar_imagen_controller');
 const { subirDNI } = require('../../controllers/editar_perfil_usuario/editar_dni_controller');
+const { getBoletaUsuario } = require('../../controllers/boleta/boleta.controller');
 
 const router = Router();
 
@@ -83,5 +84,7 @@ router.put('/editar_usuario/:id_usuario', [
 router.put('/subir_imagen/:id_usuario', subirImagen);
 
 router.put('/subir_dni/:id_usuario', subirDNI);
+
+router.get('/boleta_usuario/:id_usuario', getBoletaUsuario)
 
 module.exports = router;

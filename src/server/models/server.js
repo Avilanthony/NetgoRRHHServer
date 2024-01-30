@@ -13,6 +13,7 @@ const routerEditarLocal = require('../routes/administrativa/editables/local_edit
 const routerEditarRol = require('../routes/administrativa/editables/rol_editable')
 const routerEditUser = require('../routes/gestionar_usuario/gestionar_ususario')
 const fileUpload = require('express-fileupload');
+const routerBoletaUsuario = require('../routes/usuarios/usuarios')
 
 class Server{
     constructor(){
@@ -28,7 +29,8 @@ class Server{
             locals: '/local_users',
             rols: '/rol_users',
             editables: '/editar',
-            gestionarUsuario: '/gestion_user'
+            gestionarUsuario: '/gestion_user',
+            boleta: '/boleta'
         };
         this.middlewares();
         this.routes();
@@ -58,6 +60,7 @@ class Server{
         this.app.use(this.apiroutes.editables, routerEditarLocal);
         this.app.use(this.apiroutes.editables, routerEditarRol);
         this.app.use(this.apiroutes.gestionarUsuario, routerEditUser);
+        this.app.use(this.apiroutes.boleta, routerBoletaUsuario);
     }
 
     listen(){
