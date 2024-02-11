@@ -17,6 +17,9 @@ const USERS = rrhhNetgo.define('tbl_ms_usuario', {
     ID_LOCAL: {
         type: DataTypes.INTEGER
     },
+    ID_DNI: {
+        type: DataTypes.INTEGER
+    },
     USUARIO: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -65,10 +68,10 @@ const USERS = rrhhNetgo.define('tbl_ms_usuario', {
     },
     PUBLIC_ID_PDF: {
         type: DataTypes.TEXT
-    },
+    }/* ,
     TOKEN_DISPOSITIVO: {
         type: DataTypes.TEXT
-    }
+    } */
 }, {
     tableName: 'tbl_ms_usuario',
     timestamps: false

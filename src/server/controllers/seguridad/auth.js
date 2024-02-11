@@ -4,12 +4,16 @@ const bcrypt = require('bcryptjs');
 const ROLES = require("../../models/modulo_seguridad/rol");
 const { generarJWT } = require("../../helpers/jwt");
 const USERS = require("../../models/modulo_seguridad/usuario");
+const ViewLogin = require("../../models/modulo_seguridad/views/login_view");
 
 const login = async (req = request, res = response) => {
     //Extract body parameters
-    const { usuario, contrasena } = req.body;
+    const { dni, contrasena } = req.body;
     try {
-        const DBUser = await USERS.findOne({ where: { USUARIO: usuario } });        
+
+        const DBUser = await ViewLogin.findOne({
+            where: { DNI: dni },
+        });
 
         if (!DBUser) {
             return res.status(404).json({

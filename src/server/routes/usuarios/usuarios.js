@@ -18,9 +18,10 @@ const router = Router();
 
 router.post('/login',[
 
-    check('usuario', 'El usuario es obligatorio').not().isEmpty(),
-    check('usuario', 'El usuario debe escribirse en mayúsculas').isUppercase(),
-    check('usuario', 'El usuario no debe tener más de 15 caracteres').isLength({max: 15}),
+    check('dni', 'El dni de la persona es obligatorio').not().isEmpty(),
+    check('dni', 'El dni no debe llevar espacios').custom(validarEspacio),
+    check('dni', 'El dni no debe tener menos de 13 caracteres').isLength({min: 13}),
+    check('dni', 'El dni no debe tener más de 13 caracteres').isLength({max: 13}),
     check('contrasena', 'La contraseña es obligatoria').not().isEmpty(),
     validarEspaciosLogin,
     validarCampos
