@@ -65,6 +65,9 @@ const USERS = rrhhNetgo.define('tbl_ms_usuario', {
     },
     PUBLIC_ID_PDF: {
         type: DataTypes.TEXT
+    },
+    TOKEN_DISPOSITIVO: {
+        type: DataTypes.TEXT
     }
 }, {
     tableName: 'tbl_ms_usuario',
