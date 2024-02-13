@@ -138,13 +138,6 @@ const postNotificacionRRHH = async (req = request, res = response) => {
                 DETALLE: detalle,
             });
         }
-        console.error(ID_USUARIO_ORIGEN);
-        console.error(ID_USUARIO_DESTINO);
-        console.error(ID_DEPTO_ORIGEN);
-        console.error(ID_DEPTO_DESTINO);
-        console.error(ASUNTO);
-        console.error(DETALLE);
-
 
         // Generar respuesta exitosa
         return res.status(200).json({
