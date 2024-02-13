@@ -5,12 +5,17 @@ const { validarEspaciosLogin, validarEspacio } = require('../../middlewares/vali
 const { Router } = require('express');
 
 const { getTicketUsuario } = require('../../controllers/seguridad/usuario.controller');
-const { getDispositivoUser } = require('../../controllers/notificaciones/notificacion.controller');
+const { getNotificacionUser, postNotificacion, postNotificacionRRHH } = require('../../controllers/notificaciones/notificacion.controller');
 
 const router = Router();
 
 router.get('/ticket_usuario/:id_usuario', getTicketUsuario),
 
-router.get('/ticket_noti/enviar', getDispositivoUser)
+router.get('/ticket_noti/:id_usuario', getNotificacionUser);
+
+router.post('/enviar_ticket', postNotificacion);
+
+router.post('/enviar_noti_rrhh', postNotificacionRRHH);
+
 
 module.exports = router;

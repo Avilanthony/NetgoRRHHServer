@@ -1,66 +1,169 @@
 const { request, response } = require("express");
 
+const ViewUserNotification = require("../../models/modulo_notificaciones/view/notificacion_user_view");
+const NOTIFICACION = require("../../models/modulo_notificaciones/notificacion_user");
+const ViewUsuarios = require("../../models/modulo_seguridad/views/usuario_datos_view");
 const USERS = require("../../models/modulo_seguridad/usuario");
-const { Op } = require("sequelize");
+const DEPTOS = require("../../models/modulo_departamento/departamento");
 
-const getDispositivoUser = async (req = request, res = response) => {
+const getNotificacionUser = async (req = request, res = response) => {
 
-    /* try {
-        
-        const usuario = await USERS.findOne({ where: {
-            [Op.and]: [
-              { ID_DEPARTAMENTO: 1 },              
+    const {
+        id_usuario
+    } = req.params;
+
+    try {
+
+        const usuario = await ViewUserNotification.findAll({
+            attributes: [
+                'ID_NOTIFICACION',
+                'ID_USUARIO_ORIGEN',
+                'ID_USUARIO_DESTINO',
+                'P_NOMBRE',
+                'S_NOMBRE',
+                'P_APELLIDO',
+                'S_APELLIDO',
+                'DEPARTAMENTO',
+                'ESTADO',
+                'TOKEN_APP',
+                'ASUNTO',
+                'DETALLE',
+                'FECHA'
             ],
-            [Op.not]: [
-                { TOKEN_DISPOSITIVO: null }
-            ]
-          } });
-            
-        if (!usuario) {
-            console.log('Usuario no encontrado');
+            where: {
+                ID_USUARIO_DESTINO: id_usuario
+            }
+        });
+
+        if (usuario.length === 0) {
+            console.log('No tiene notificaciones');
             return res.status(404).json({
                 ok: false,
-                msg: "No existe el usuario"
+                msg: "No tiene notificaciones"
             });
         }
 
-        res.json({token_dispositivo: usuario.TOKEN_DISPOSITIVO});
+        res.json({ usuario });
+
     } catch (error) {
         console.error(error);
 
         res.status(500).json({
             msg: error.message
         });
-    } */
-
-    try {
-
-        const usuario = await USERS.findOne({ where: {
-            [Op.and]: [
-              { ID_DEPARTAMENTO: 1 },              
-            ],
-            [Op.not]: [
-                { TOKEN_DISPOSITIVO: null }
-            ]
-          } });
-          if (!usuario) {
-            console.log('Usuario no encontrado');
-            return res.status(404).json({
-                ok: false,
-                msg: "No existe el usuario"
-            });
-        }
-        res.json({token_dispositivo: usuario.TOKEN_DISPOSITIVO});
-       
-   } catch (error) {
-    console.error(error);
-
-    res.status(500).json({
-        msg: error.message
-    });
-   }
+    }
 };
 
-module.exports = {   
-    getDispositivoUser,
+const postNotificacion = async (req = request, res = response) => {
+    const {
+        id_usuario_origen = "",
+        asunto = "",
+        detalle = "",
+        departamento_usuario = ""
+    } = req.body;
+
+    try {
+        const usuario = await USERS.findAll ({
+            attributes: [
+                'ID_USUARIO',
+            ],where : {ID_DEPARTAMENTO : 1}
+        })
+
+        const departamento = await DEPTOS.findOne ({
+            where : {DEPARTAMENTO : departamento_usuario}
+        })
+
+        const idsUsuarios = usuario.map(usuario => usuario.ID_USUARIO);
+
+        //console.log(idsUsuarios);
+
+        // Crear notificacion con el modelo
+        for (const idUsuario of idsUsuarios) {
+            await NOTIFICACION.create({
+                ID_USUARIO_ORIGEN: id_usuario_origen,
+                ID_USUARIO_DESTINO: idUsuario,
+                ID_DEPTO_ORIGEN: departamento.ID_DEPARTAMENTO,
+                ID_DEPTO_DESTINO: 1,
+                ASUNTO: asunto,
+                DETALLE: detalle,
+            });
+        }
+
+        // Generar respuesta exitosa
+        return res.status(200).json({
+            ok: true,
+            status: true,
+            msg: 'Notificacion éxitosa',
+        });
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            msg: error.message
+        });
+    }
+};
+
+const postNotificacionRRHH = async (req = request, res = response) => {
+    const {
+        id_usuario_origen = "",
+        asunto = "",
+        detalle = "",
+        id_Depto_Destino
+    } = req.body;
+
+    try {
+        const usuario = await USERS.findAll ({
+            attributes: [
+                'ID_USUARIO',
+            ],where : {ID_DEPARTAMENTO : id_Depto_Destino}
+        })
+
+        const departamento = await DEPTOS.findOne ({
+            where : {DEPARTAMENTO : 'RRHH'}
+        })
+
+        const idsUsuarios = usuario.map(usuario => usuario.ID_USUARIO);
+
+        //console.log(idsUsuarios);
+
+        // Crear notificacion con el modelo
+        for (const idUsuario of idsUsuarios) {
+            await NOTIFICACION.create({
+                ID_USUARIO_ORIGEN: id_usuario_origen,
+                ID_USUARIO_DESTINO: idUsuario,
+                ID_DEPTO_ORIGEN: departamento.ID_DEPARTAMENTO,
+                ID_DEPTO_DESTINO: id_Depto_Destino,
+                ASUNTO: asunto,
+                DETALLE: detalle,
+            });
+        }
+        console.error(ID_USUARIO_ORIGEN);
+        console.error(ID_USUARIO_DESTINO);
+        console.error(ID_DEPTO_ORIGEN);
+        console.error(ID_DEPTO_DESTINO);
+        console.error(ASUNTO);
+        console.error(DETALLE);
+
+
+        // Generar respuesta exitosa
+        return res.status(200).json({
+            ok: true,
+            status: true,
+            msg: 'Notificacion a usuarios eviada éxitosamente',
+        });
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            msg: error.message
+        });
+    }
+};
+
+
+module.exports = {
+    getNotificacionUser,
+    postNotificacion, 
+    postNotificacionRRHH
 };
